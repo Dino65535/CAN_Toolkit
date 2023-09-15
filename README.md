@@ -9,8 +9,10 @@
 (一些顏色代碼如 `\e[1m` 在其他 linux 系統上可會沒有效果)
 
 ### 工具
-* [can-utils](https://github.com/linux-can/can-utils)  
-(通常應該都內建好了)
+* [can-utils](https://github.com/linux-can/can-utils)
+
+      sudo apt update
+      sudo apt install can-utils
 
 ### 使用說明
 * 需要先輸入指令添加腳本的執行權限
