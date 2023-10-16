@@ -18,7 +18,11 @@
 * 需要先輸入指令添加腳本的執行權限
   
       chmod +x cantool.sh
-  
+
+* 使用時選擇 can 介面名稱
+
+      ./cantool.sh vcan0
+    
 * 腳本功能涉及到開啟和關閉 virtual can 介面，因此有使用 sudo 語法，若不需要開啟和關閉的功能或是不需要以管理員的權限開啟，可以將腳本以下語法註解(加#)或刪除
   ``` Bash
   21 sudo modprobe can
