@@ -40,7 +40,7 @@ menu(){
 	echo "[6] 寄送 can 封包"
 	echo "[7] 隨機生成 can 封包"
 	echo "[8] 嗅探 can"
-	echo "[9] 注入 can 封包"
+	echo "[9] 注入 can 封包(持續傳送)"
 	echo "輸入其他數字離開"
 	echo "──────────────────────────────"
 	echo -e "[?] 輸入選擇 : \c"
@@ -251,37 +251,7 @@ send(){
 	echo -e "[?] 輸入內容 : \c"
 	read frame
 
-	echo "──────────────────────────────"
-	echo "選擇傳送方法"
-	echo "[1] 傳送一次(適用於更改指示燈等)"
-	echo "[2] 持續傳送(適用於速度儀等)"
-	echo "輸入其他數字離開"
-	echo "──────────────────────────────"
-	echo -e "[?] 輸入選擇 : \c"
-	read option
-	if [[ "$option" =~ ^[0-9]+$ ]]; then
-		option=$((10#$option))
-	else
-		msg="請輸入整數!"
-		message
-		send
-	fi
-
-	if [[ "$option" = 1 ]]; then
-		cansend $interface "$frame"
-	elif [[ "$option" = 2 ]]; then
-		msg="持續傳送中...(Ctrl-C 終止)"
-		message
-		while true
-		do
-			cansend $interface "$frame"
-		done
-	else
-		msg="傳送已取消!"
-		message
-		menu
-	fi
-
+	cansend $interface "$frame"
 	msg="封包已傳送!"
 }
 generate(){
