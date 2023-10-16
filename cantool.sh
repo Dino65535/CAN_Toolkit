@@ -12,7 +12,7 @@ redBG_whiteWord="\e[41m"
 reset="\e[0m"
 #=============================================
 
-if [[ -z $1 ]] then
+if [[ -z $1 ]]; then
 	echo "需要輸入介面名稱!"
 	echo "舉例: ./command.sh vcan0"
 	exit 1
@@ -46,45 +46,45 @@ menu(){
 	echo -e "[?] 輸入選擇 : \c"
 
 	read option
-	if [[ "$option" =~ ^[0-9]+$ ]] then
+	if [[ "$option" =~ ^[0-9]+$ ]]; then
 		option=$((10#$option))
 	else
 		msg="請輸入整數!"
 		menu
 	fi
 
-	if [[ "$option" = 1 ]] then
+	if [[ "$option" = 1 ]]; then
 		msg="$interface 已啟動!"
 		sudo ip link set up $interface
 		menu
-	elif [[ "$option" = 2 ]] then
+	elif [[ "$option" = 2 ]]; then
 		msg="$interface 已關閉!"
 		sudo ip link set $interface down
 		menu
-	elif [[ "$option" = 3 ]] then
+	elif [[ "$option" = 3 ]]; then
 		check
 		dump
 		menu
-	elif [[ "$option" = 4 ]] then
+	elif [[ "$option" = 4 ]]; then
 		check
 		record
 		menu
-	elif [[ "$option" = 5 ]] then
+	elif [[ "$option" = 5 ]]; then
 		player
 		menu
-	elif [[ "$option" = 6 ]] then
+	elif [[ "$option" = 6 ]]; then
 		check
 		send
 		menu
-	elif [[ "$option" = 7 ]] then
+	elif [[ "$option" = 7 ]]; then
 		check
 		generate
 		menu
-	elif [[ "$option" = 8 ]] then
+	elif [[ "$option" = 8 ]]; then
 		check
 		sniffer
 		menu
-	elif [[ "$option" = 9 ]] then
+	elif [[ "$option" = 9 ]]; then
 		check
 		injection
 		menu
@@ -97,7 +97,7 @@ menu(){
 check(){
 	can_status=$(ip link show "$interface" | grep -o "state [A-Z]\+" | awk '{print $2}')
 
-	if [[ "$can_status" = "DOWN" ]] then
+	if [[ "$can_status" = "DOWN" ]]; then
 		msg="$reset$redBG_whiteWord介面尚未啟動!"
 		menu
 	fi
@@ -115,7 +115,7 @@ dump(){
 	echo "──────────────────────────────"
 	echo -e "[?] 輸入選擇 : \c"
 	read option
-	if [[ "$option" =~ ^[0-9]+$ ]] then
+	if [[ "$option" =~ ^[0-9]+$ ]]; then
 		option=$((10#$option))
 	else
 		msg="請輸入整數!"
@@ -126,13 +126,13 @@ dump(){
 	msg="已開始監聽!(Ctrl-C 終止)"
 	message
 	
-	if [[ "$option" = 1 ]] then
+	if [[ "$option" = 1 ]]; then
 		candump -t a $interface
-	elif [[ "$option" = 2 ]] then
+	elif [[ "$option" = 2 ]]; then
 		candump -t d $interface
-	elif [[ "$option" = 3 ]] then
+	elif [[ "$option" = 3 ]]; then
 		candump -t z $interface
-	elif [[ "$option" = 4 ]] then
+	elif [[ "$option" = 4 ]]; then
 		candump -t A $interface
 	else
 		msg="監聽已取消!"
@@ -154,7 +154,7 @@ record(){
 	echo "──────────────────────────────"
 	echo -e "[?] 輸入選擇 : \c"
 	read option
-	if [[ "$option" =~ ^[0-9]+$ ]] then
+	if [[ "$option" =~ ^[0-9]+$ ]]; then
 		option=$((10#$option))
 	else
 		msg="請輸入整數!"
@@ -163,13 +163,13 @@ record(){
 	fi
 
 	date=""
-	if [[ "$option" = 1 ]] then
+	if [[ "$option" = 1 ]]; then
 		date="-t a"
-	elif [[ "$option" = 2 ]] then
+	elif [[ "$option" = 2 ]]; then
 		date="-t d"
-	elif [[ "$option" = 3 ]] then
+	elif [[ "$option" = 3 ]]; then
 	 	date="-t z"
-	elif [[ "$option" = 4 ]] then
+	elif [[ "$option" = 4 ]]; then
 	 	date="-t A"
 	else
 		msg="紀錄已取消!"
@@ -186,7 +186,7 @@ record(){
 	echo "──────────────────────────────"
 	echo -e "[?] 輸入選擇 : \c"
 	read option
-	if [[ "$option" =~ ^[0-9]+$ ]] then
+	if [[ "$option" =~ ^[0-9]+$ ]]; then
 		option=$((10#$option))
 	else
 		msg="請輸入整數!"
@@ -195,9 +195,9 @@ record(){
 	fi
 
 	form=""
-	if [[ "$option" = 1 ]] then
+	if [[ "$option" = 1 ]]; then
 		form=""
-	elif [[ "$option" = 2 ]] then
+	elif [[ "$option" = 2 ]]; then
 		form="-L"
 	else
 		msg="紀錄已取消!"
@@ -228,7 +228,7 @@ player(){
 	echo -e "[?] 輸入名稱 : \c" 
 	read -a filename
 
-	if [[ ! -e "$filename" ]] then\
+	if [[ ! -e "$filename" ]]; then
 		msg="所選檔案不存在!"
 		menu
 	fi
@@ -259,7 +259,7 @@ send(){
 	echo "──────────────────────────────"
 	echo -e "[?] 輸入選擇 : \c"
 	read option
-	if [[ "$option" =~ ^[0-9]+$ ]] then
+	if [[ "$option" =~ ^[0-9]+$ ]]; then
 		option=$((10#$option))
 	else
 		msg="請輸入整數!"
@@ -267,9 +267,9 @@ send(){
 		send
 	fi
 
-	if [[ "$option" = 1 ]] then
+	if [[ "$option" = 1 ]]; then
 		cansend $interface "$frame"
-	elif [[ "$option" = 2 ]] then
+	elif [[ "$option" = 2 ]]; then
 		msg="持續傳送中...(Ctrl-C 終止)"
 		message
 		while true
