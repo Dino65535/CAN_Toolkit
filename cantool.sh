@@ -181,7 +181,7 @@ record(){
 	echo "選擇格式參數"
 	echo "[1] (000.000000) vcan0 001 [8] 00 01 02 03 04 05 06 07"
 	echo "[2] (000.000000) vcan0 001#0001020304050607"
-	echo -e "$green格式2只會輸出UNIX時間戳$reset"
+	echo -e "$green選擇格式2才可以重播$reset"
 	echo "輸入其他數字離開"
 	echo "──────────────────────────────"
 	echo -e "[?] 輸入選擇 : \c"
@@ -223,6 +223,7 @@ player(){
 
 	echo "輸入檔案名稱"
 	echo "舉例: 0826-01.log"
+	echo "重播格式必須為 (1699708045.275755) vcan0 165#313D5C150D9B0160"
 	echo -e "$green輸入檔案不存在則跳回主選單$reset"
 	echo "──────────────────────────────"
 	echo -e "[?] 輸入名稱 : \c" 
@@ -279,9 +280,16 @@ injection(){
 	echo "data: 長度0~8的十六進制值"
 	echo "len: 0~8"
 	echo "舉例: 5A1#1234ABCD / B23#R3"
+	echo "[0] 離開"
 	echo "──────────────────────────────"
 	echo -e "[?] 輸入內容 : \c"
 	read frame
+
+	if [[ "$frame" = 0 ]]; then
+		msg="注入已取消!"
+		message
+		menu
+	fi
 
 	msg="正在注入封包!(Ctrl-C 終止)"
 	message
